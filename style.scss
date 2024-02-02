@@ -1,0 +1,107 @@
+@mixin defDash($id, $anim-name, $array, $offset) {
+	$scene-duration-percantage: 30;
+	$start: (100-$scene-duration-percantage) / 2;
+	$end: ((100-$scene-duration-percantage) / 2) + $scene-duration-percantage;
+
+	#{$id} {
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-dasharray: $array $offset $array 10000;
+		stroke-dashoffset: 0;
+	}
+
+	@keyframes #{$anim-name} {
+		0% {
+			stroke-dashoffset: 0;
+			stroke-width: var(--stroke-thin);
+		}
+		#{$start}#{"%"} {
+			stroke-dashoffset: 0;
+			stroke-width: var(--stroke-thin);
+		}
+		#{$end}#{"%"} {
+			stroke-dashoffset: $array + $offset;
+			stroke-width: var(--stroke-wide);
+		}
+		100% {
+			stroke-dashoffset: $array + $offset;
+			stroke-width: var(--stroke-wide);
+		}
+	}
+
+	& {
+		#{$id} {
+			animation: var(--animation-timing) #{$anim-name} ease-in-out infinite
+				alternate 1s;
+		}
+	}
+}
+
+.lfmv_logo {
+	--animation-timing: 3s;
+	--logo-color: #949494;
+	--stroke-wide: 15px;
+	--stroke-thin: 5px;
+	position: relative;
+	width: clamp(5rem, 50vw, 25rem);
+	height: auto;
+	margin: auto 0;
+	border-radius: 10px;
+	background: inherit;
+	z-index: 6;
+
+	.stop1 {
+		stop-color: #2c4f7c;
+	}
+	.stop2 {
+		stop-color: #61dafb;
+	}
+	.stop3 {
+		stop-color: #ff3e00;
+	}
+
+	.cls {
+		&-1,
+		&-2 {
+			--logo-color: #fff;
+			fill: none;
+			stroke-linecap: round;
+			stroke-linecap: square;
+			stroke-width: var(--stroke-thin);
+			stroke: var(--logo-color);
+		}
+		&-2 {
+			stroke-width: 5px;
+			stroke: none;
+			fill: var(--logo-color);
+		}
+	}
+	#hill {
+		stroke-width: 7;
+		stroke: #ffffff9c;
+		stroke-dasharray: 500 500;
+		stroke-dashoffset: -500;
+		stroke-linecap: round;
+		stroke-linejoin: bevel;
+		transition: all 1s ease-in-out;
+		animation: infinite-hill infinite 8000s linear;
+	}
+	@include defDash("#lf", lf-animate, 800, 500);
+	@include defDash("#M", M-animate, 650, 500);
+	@include defDash("#V", V-animate, 650, 500);
+	@include defDash("#dash", dash-animate, 50, 20);
+}
+
+#rect-front {
+	mask: url(#animated-mask);
+	fill: url(#Gradient1);
+}
+
+@keyframes infinite-hill {
+	from {
+		stroke-dashoffset: 0;
+	}
+	to {
+		stroke-dashoffset: 1000000;
+	}
+}
