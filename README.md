@@ -1,6 +1,6 @@
 # lfmv-logo
 
-<p style="text-align: center; filter: drop-shadow(0 0 10px #000a)">
+<p align="center" style="filter: drop-shadow(0 0 10px #000a)">
 	<img src="./lfmv-logo.svg" width="200" height="auto" >
 </p>
 
