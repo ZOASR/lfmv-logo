@@ -36,13 +36,15 @@ const compileFile = async () => {
 			style: "expanded",
 		});
 		const css = compiler.to_string();
+		const indentedCss =
+			typeof css == "string" ? css.replaceAll(/^(.+)$/gm, "    $1") : css;
 		const svgText = svgFile.replace(
 			/(<\/svg>)/g,
 			`
-		<style>
-			${css}
-		</style>
-	$1`
+  <style>
+${indentedCss}
+  </style>
+$1`
 		);
 		Deno.writeTextFile(outFileName, svgText);
 	}
