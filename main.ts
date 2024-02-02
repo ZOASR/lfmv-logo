@@ -47,6 +47,7 @@ const compileFile = async () => {
 		Deno.writeTextFile(outFileName, svgText);
 	}
 };
+compileFile();
 
 for await (const event of watcher) {
 	if (
@@ -61,6 +62,5 @@ for await (const event of watcher) {
 			`color: #222; fontweight: bold`
 		);
 		compileFile();
-		continue;
 	}
 }
